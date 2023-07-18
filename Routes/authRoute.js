@@ -64,7 +64,7 @@ router.get("/get-user", async (req, res) => {
     const decoded = jwt_decode(token);
     const userDetails = await userModel.findOne({ _id: decoded.data._id });
     if (userDetails) {
-      res.send(userDetails);
+      res.send({ user: userDetails, message: "success" });
     } else {
       res.status(404).send({ message: "User not found" });
     }
