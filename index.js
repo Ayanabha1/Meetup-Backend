@@ -27,7 +27,10 @@ const connectDB = () => {
 // Routes and middlewares
 app.use("/api/v1/auth", authRoute);
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "dist", "index.html"));
+  res.sendFile(path.join(__dirname, "dist", "index.html"), {
+    VITE_AGORA_APP_ID: process.env.AGORA_APP_ID,
+    VITE_API_URL: `http:localhost:${PORT}/api/v1`,
+  });
 });
 
 // Listening to the server
