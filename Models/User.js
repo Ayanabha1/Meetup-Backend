@@ -15,6 +15,15 @@ const UserSchema = new Schema({
     type: String,
     require: true,
   },
+  meetings: [
+    {
+      meeting_id: { type: String, require: true },
+      session_token: { type: String, require: true },
+      start_time: { type: Date, require: true },
+      end_time: { type: Date, require: true },
+      participants: { type: Number, require: true },
+    },
+  ],
 });
 
 module.exports = mongoose.model("users", UserSchema);

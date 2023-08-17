@@ -7,6 +7,7 @@ const {
 } = require("../Validation/SchemaValidation");
 const jwt = require("jsonwebtoken");
 const jwt_decode = require("jwt-decode");
+const validateUser = require("./validateUser");
 
 async function generateToken(data) {
   const token = await jwt.sign(
@@ -103,6 +104,19 @@ router.post("/login", async (req, res) => {
     res
       .status(400)
       .send({ message: "Something went wrong ... please try again" });
+  }
+});
+
+// get meeting history
+
+router.get("/get-meeting-history", validateUser, async (req, res) => {
+  const userId = req.body.userId;
+  try {
+    const targetUser = await userModel.findOne({ _id: userId });
+    const meetingHistory = targetUser?.meetings;
+    res.send({ meetings: meetingHistory, message: "success" });
+  } catch (error) {
+    res.status(400).send({ message: "Internal server error" });
   }
 });
 
