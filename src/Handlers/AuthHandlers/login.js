@@ -43,10 +43,10 @@ module.exports.handler = async (event, context) => {
     }
 
     // Generate the jwt Token
-
-    const _token = await generateToken(user);
+    const userObj = { _id: user._id, name: user.name, email: user.email };
+    const _token = await generateToken(userObj);
     return sendResponse({
-      user: user,
+      user: userObj,
       message: "Login success!",
       token: _token,
     });
